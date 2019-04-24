@@ -1,0 +1,19 @@
+[
+  {
+    "_id" : "romuald",
+    "avatar" : "2018-03-20-romuald.png",
+    "email" : "romuald.thion@univ-lyon1.fr",
+    "joinedOn" : "2017-02-18"
+  },
+  {
+    "_id" : "manu",
+    "avatar" : "photo_perso.png",
+    "email" : "manu@univ-lyon1.fr",
+    "joinedOn" : "2017-02-18"
+  },
+  {
+    "_id" : "nicolas",
+    "email" : "nicolas@univ-lyon1.fr",
+    "joinedOn" : "2016-08-18"
+  }
+]

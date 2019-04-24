@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<html lang="en">
+<link rel="shortcut icon" href="icon.ico">
+<head>
+  <title id="titre">MyTODOS Manager (LIFAP5-Projet)</title>
+  <style>
+    .brand {height: 25px;}
+  </style>
+  <meta charset="UTF-8"/>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- script de base pour le projet -->
+  <script src="./LIFAP5-Projet.js" type="text/javascript"></script> 
+</head>
+<body style="background-color : #F7F8E0">
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+	<div class="container-fluid">
+	<div class="navbar-header">
+	<a href="https://www.univ-lyon1.fr/"><img id="brand-logo" alt="Brand" class="navbar-brand brand" src="./logo.svg"></a>
+	<p class="navbar-brand">Hi,</p><p class="navbar-brand" id="idUser">unknown</p>
+	<ul class="nav navbar-nav">
+		<li><a data-toggle="collapse" href="#CollapseSortMyTodos">Sort my Todos</a></li>
+		<li><a data-toggle="collapse" href="#CollapseSortTheOthersTodos">Sort the others Todos</a></li>
+	</ul>
+	<form class="navbar-form navbar-right inline-form collapse" id="CollapseSortMyTodos">
+		<div class="form-group">
+			<label for="SortMyTodos" style="color:#ffffff"><b>Sort My Todos</b></label>
+			<select title="choix type recherche" class="form-control" id="SortMyTodos">
+				<option>title</option>
+				<option>deadline</option>
+				<option>status</option>
+			</select>
+		</div><!-- form-group -->
+	</form><!-- form sort my todos -->
+	<form class="navbar-form navbar-right inline-form collapse" id="CollapseSortTheOthersTodos">
+		<div class="form-group">
+			<label for="SorTodos" style="color:#ffffff"><b>Sort The Others Todos</b></label>
+			<select title="choix type recherche" class="form-control" id="SortTheOthersTodos">
+				<option>title</option>
+				<option>deadline</option>
+				<option>status</option>
+			</select>
+		</div><!-- form-group -->
+	</form> <!-- form sort the others todos -->
+	<ul class="nav navbar-nav">
+	<li><a class="btn btn-success" data-toggle="modal" data-target="#userModal" style="color:#ffffff" href="#" role="button">Change User</a></li>
+	</ul>
+	</div><!-- nav-header -->
+	</div><!-- container-fluid -->
+</nav>
+<!--- -->
+<!-- Modal userModal-->
+<div id="userModal" class="modal fade" role="dialog">
+<div class="modal-dialog">
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	<h4 class="modal-title">Changing User</h4>
+</div><!--modal-header-->
+<div class="modal-body">
+	<div class="form-group">
+        <label for="username_logscreen">Username</label>
+        <input class="form-control" id="username_logscreen" name="username" type="text" placeholder="Enter your Username">
+    </div><!--form-group-->
+	<div class="form-group">
+        <label for="userPassword">Password</label>
+        <input class="form-control" id="userPassword" type="password" autocomplete="current-password">
+    </div><!--form-group-->
+</div><!--modal-body-->
+<div class="modal-footer">
+    <button type="button" class="glyphicon glyphicon-ok btn btn-success" id = "lire_users_json" data-dismiss="modal"></button>
+</div><!--modal-footer-->
+</div><!--modal-content-->
+</div><!--modal-dialog-->
+</div><!--userModal modal fade-->
+
+<!-- -->
+<h1 class="text-center" style = "color : #0404B4">Welcome to My Todo Manager</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+        
+		<div id="profile-logo"><img class="img-responsive" alt="Profile" src="./profil.png"></div>
+		<button id="PreremplirUser" type="button" class="glyphicon glyphicon-cog btn btn-info btn-sm" data-toggle="modal" data-target="#settingsUser"></button>
+		<p id="mailaddressUser"></p>
+		<p id="joinedOnUser"></p>
+		<div class="panel-group"id = "todoSelected">
+		</div>
+		
+		<!-- Modal settings -->
+          <div id="settingsUser" class="modal fade" role="dialog" style="display: none;">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+                <form class="modal-content" id="upload-form-settings" enctype="multipart/form-data">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Settings</h4>
+                  </div>
+                  <div class="modal-body">
+					<div class="form-group">
+                      <label for="upload-email">email</label>
+                      <input class="form-control" id="upload-email" name="title" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-photo">Photo LOCAL</label>
+                      <input id = "upload-photo" name="monFichier" type="file">
+                    </div>
+					<div class="form-group">
+                      <label for="upload-online">OR Photo ONLINE</label>
+                      <input class="form-control" id="upload-online" name="title" type="text">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input class="btn btn-default" id="settings-button" data-dismiss="modal" name="submit" value="Ok" type="button">
+                  </div><!--modal footer-->
+                </form>
+            </div><!--modal dialog-->
+          </div> <!--modal fade -->
+		  
+		  
+      </div> <!-- PANEL col-sm-5 -->
+
+      <div class="col-sm-3 main">
+        <h1 class="page-header">Mes TODOS</h1>
+        <div id="panel-my-todos1">
+		
+			<div class="panel-group" id="todos">
+			</div><!--panel-group todos-->
+			<div class="form-group"><label for="Filtre" style="color:#008000"><b>Filter My Todos</b></label><select title="filtrage" class="form-control" id="Filtre"><option>TOUT</option><option>DOING</option><option>TODO</option><option>DONE</option></select></div>
+          <button type="button" class="btn btn-info pull-right btn-lg" data-toggle="modal" data-target="#uploadModal">+</button>
+
+          <!-- Modal create -->
+          <div id="uploadModal" class="modal fade" role="dialog" style="display: none;">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+                <form class="modal-content" id="upload-form" enctype="multipart/form-data">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Create new TODO</h4>
+                  </div>
+                  <div class="modal-body">
+					<div class="form-group">
+                      <label for="upload-title">Title:</label>
+                      <input class="form-control" id="upload-title" name="title" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-desc">Description:</label>
+                      <input class="form-control" id="upload-desc" name="desc" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-mentioned">Mentioned users:</label>
+                      <input class="form-control" id="upload-mentioned" name="mentioned" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-deadline">Deadline:</label>
+                      <input class="form-control" id="upload-deadline" name="deadline" type="text">
+                    </div>
+                    <div class="form-group">
+					   <div class="form-group"><label for="upload-state">State:</label><select title="upload-state" class="form-control" id="upload-state"><option>DOING</option><option>TODO</option><option>DONE</option></select></div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <input class="btn btn-info" id="upload-button" data-dismiss="modal" value= "Upload" name="submit" type="button">
+                  </div><!--modal footer-->
+                </form>
+            </div><!--modal dialog-->
+          </div> <!--modal fade -->
+		  
+		  
+		  <!-- Modal modify-->
+          <div id="uploadModal2" class="modal fade" role="dialog" style="display: none;">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+                <form class="modal-content" id="upload-form2" enctype="multipart/form-data">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Modify your TODO</h4>
+                  </div>
+                  <div class="modal-body">
+					<div class="form-group">
+                      <label for="upload-title">Title:</label>
+                      <input class="form-control" id="upload-title2" name="title" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-desc">Description:</label>
+                      <input class="form-control" id="upload-desc2" name="desc" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-mentioned">Mentioned users:</label>
+                      <input class="form-control" id="upload-mentioned2" name="mentioned" type="text">
+                    </div>
+                    <div class="form-group">
+                      <label for="upload-deadline">Deadline:</label>
+                      <input class="form-control" id="upload-deadline2" name="deadline" type="text">
+                    </div>
+                      <div class="form-group"><label for="upload-state2">State:</label><select title="upload-state" class="form-control" id="upload-state2"><option>DOING</option><option>TODO</option><option>DONE</option></select></div>
+                  </div>
+                  <div class="modal-footer">
+                    <input class="btn btn-default" id="upload-button2" data-dismiss="modal" name="submit" value="Ok" type="button">
+                  </div><!--modal footer-->
+                </form>
+            </div><!--modal dialog-->
+          </div> <!--modal fade -->
+          
+        </div> <!-- panel mytodos1-->
+      </div><!--"col-sm-3 main"-->
+
+      <div class="col-sm-3 main">
+        <h1 class="page-header">TODOS mentionnés</h1>
+        <div id="panel-my-todos2">
+		<div class="panel-group" id="mentioned-todos">
+		</div><!--panel-group mentioned-todos-->
+        </div> <!-- panel mytodos2-->
+        <div class="form-group"><label for="Filtre2" style="color:#008000"><b>Filter The Others Todos</b></label><select title="filtrage2" class="form-control" id="Filtre2"><option>TOUT</option><option>DOING</option><option>TODO</option><option>DONE</option></select></div>
+      </div><!--"col-sm-3 main"-->
+<button type="button" class="glyphicon glyphicon-refresh btn btn-success btn-lg" id = "refresh"></button>
+        <hr>
+        <!-- Trigger the modal with a button -->
+    </div><!-- row -->
+  </div><!--container-fluid-->
+</body>
+</html>
